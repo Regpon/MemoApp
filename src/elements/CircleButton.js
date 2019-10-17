@@ -1,24 +1,53 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import PropTypes from 'prop-types';
+import * as Font from 'expo-font';
+import { createIconSet } from '@expo/vector-icons';
+import fontAwsome from '../../assets/fonts/fa-solid-900.ttf';
 
-export default function CircleButton(props) {
-  const { title, style, reverseColor } = props;
+const CustomIcon = createIconSet({
+  pencil: '\uf303',
+  plus: '\uf067',
+}, 'FontAwsome');
 
-  let bgColor = { backgroundColor: '#E31676' };
-  let textColor = { color: '#fff' };
-
-  if (reverseColor) {
-    bgColor = { backgroundColor: '#fff' };
-    textColor = { color: '#E31676' };
+export default class CircleButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fontLoaded: false,
+    };
   }
 
-  return (
-    <View style={[styles.circleButton, style, bgColor]}>
-      <Text style={[styles.circleButtonTitle, textColor]}>{title}</Text>
-    </View>
-  );
+  async componentWillMount() {
+    await Font.loadAsync({
+      FontAwsome: fontAwsome,
+    });
+
+    this.setState({ fontLoaded: true });
+  }
+
+  render() {
+    const { name, style, reverseColor } = this.props;
+    const { fontLoaded } = this.state;
+    let bgColor = { backgroundColor: '#E31676' };
+    let textColor = { color: '#fff' };
+
+    if (reverseColor) {
+      bgColor = { backgroundColor: '#fff' };
+      textColor = { color: '#E31676' };
+    }
+
+    return (
+      <View style={[styles.circleButton, style, bgColor]}>
+        {
+          fontLoaded ? (
+            <CustomIcon name={name} style={[styles.circleButtonTitle, textColor]} />
+          ) : null
+        }
+      </View>
+    );
+  }
 }
 
 CircleButton.defaultProps = {
@@ -27,7 +56,7 @@ CircleButton.defaultProps = {
 };
 
 CircleButton.propTypes = {
-  title: PropTypes.node.isRequired,
+  name: PropTypes.string.isRequired,
   style: PropTypes.shape(),
   reverseColor: PropTypes.bool,
 };
@@ -48,7 +77,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   circleButtonTitle: {
-    fontSize: 32,
+    fontFamily: 'FontAwsome',
+    fontSize: 24,
     lineHeight: 32,
   },
 });

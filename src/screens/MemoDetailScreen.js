@@ -17,7 +17,7 @@ export default function MemoDetaiScreen() {
           講座のアイデアです。
         </Text>
       </View>
-      <CircleButton title="編" style={styles.editButton} reverseColor />
+      <CircleButton name="pencil" style={styles.editButton} reverseColor />
     </View>
   );
 }
