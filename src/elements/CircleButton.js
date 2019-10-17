@@ -4,16 +4,32 @@ import { StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 export default function CircleButton(props) {
-  const { title } = props;
+  const { title, style, reverseColor } = props;
+
+  let bgColor = { backgroundColor: '#E31676' };
+  let textColor = { color: '#fff' };
+
+  if (reverseColor) {
+    bgColor = { backgroundColor: '#fff' };
+    textColor = { color: '#E31676' };
+  }
+
   return (
-    <View style={styles.circleButton}>
-      <Text style={styles.circleButtonTitle}>{title}</Text>
+    <View style={[styles.circleButton, style, bgColor]}>
+      <Text style={[styles.circleButtonTitle, textColor]}>{title}</Text>
     </View>
   );
 }
 
+CircleButton.defaultProps = {
+  style: {},
+  reverseColor: false,
+};
+
 CircleButton.propTypes = {
   title: PropTypes.node.isRequired,
+  style: PropTypes.shape(),
+  reverseColor: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +39,6 @@ const styles = StyleSheet.create({
     right: 32,
     width: 48,
     height: 48,
-    backgroundColor: '#E31676',
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
@@ -35,6 +50,5 @@ const styles = StyleSheet.create({
   circleButtonTitle: {
     fontSize: 32,
     lineHeight: 32,
-    color: '#fff',
   },
 });
