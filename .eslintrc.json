@@ -8,7 +8,10 @@
   "rules": {
     "react/jsx-filename-extension" : 0,
     "no-use-before-define": 0,
-    "import/no-unresolved": 0
+    "import/no-unresolved": 0,
+    "object-curly-newline": ["error", {
+      "ImportDeclaration": { "multiline": false }
+    }]
   },
   "parser": "babel-eslint"
 }
