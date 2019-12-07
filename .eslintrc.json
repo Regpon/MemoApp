@@ -11,7 +11,8 @@
     "import/no-unresolved": 0,
     "object-curly-newline": ["error", {
       "ImportDeclaration": { "multiline": false }
-    }]
+    }],
+    "key-spacing": "off"
   },
   "parser": "babel-eslint"
 }
