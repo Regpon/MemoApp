@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
+import PropTypes from 'prop-types';
 
-export default function LoginScreen() {
+export default function LoginScreen(props) {
+  const { navigation } = props;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -9,12 +11,16 @@ export default function LoginScreen() {
       </Text>
       <TextInput style={styles.input} value="Email Address" />
       <TextInput style={styles.input} value="Password" />
-      <TouchableHighlight style={styles.button} onPress={() => {}} underlayColor="#C70F66">
+      <TouchableHighlight style={styles.button} onPress={() => { navigation.navigate('Home'); }} underlayColor="#C70F66">
         <Text style={styles.buttonTitle}>ログインする</Text>
       </TouchableHighlight>
     </View>
   );
 }
+
+LoginScreen.propTypes = {
+  navigation: PropTypes.shape().isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

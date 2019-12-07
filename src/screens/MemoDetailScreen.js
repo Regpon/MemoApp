@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import PropTypes from 'prop-types';
 
 import CircleButton from '../elements/CircleButton';
 
-export default function MemoDetaiScreen() {
+export default function MemoDetaiScreen(props) {
+  const { navigation } = props;
   return (
     <View style={styles.cintainer}>
       <View style={styles.memoHeader}>
@@ -17,10 +19,14 @@ export default function MemoDetaiScreen() {
           講座のアイデアです。
         </Text>
       </View>
-      <CircleButton name="pencil" reverseColor />
+      <CircleButton name="pencil" reverseColor onPress={() => { navigation.navigate('MemoEdit'); }} style={styles.editButton} />
     </View>
   );
 }
+
+MemoDetaiScreen.propTypes = {
+  navigation: PropTypes.shape().isRequired,
+};
 
 const styles = StyleSheet.create({
   cintainer: {
