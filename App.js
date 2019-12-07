@@ -27,6 +27,9 @@ const App = createStackNavigator({
   Login: {
     screen: LoginScreen,
   },
+  SignUp: {
+    screen: SignUpScreen,
+  },
   Home: {
     screen: MemoListScreen,
   },
@@ -35,9 +38,6 @@ const App = createStackNavigator({
   },
   MemoEdit: {
     screen: MemoEditScreen,
-  },
-  SignUp: {
-    screen: SignUpScreen,
   },
 }, {
   defaultNavigationOptions: {

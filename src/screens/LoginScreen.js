@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
+import firebase from 'firebase';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
@@ -20,22 +21,28 @@ export default function LoginScreen(props) {
       />
       <TextInput
         style={styles.input}
-        onChangeTaext={(value) => setPassword(value)}
+        onChangeText={(value) => setPassword(value)}
         autoCapitalize="none"
         autoCorrect={false}
         placeholder="Password"
         secureTextEntry
       />
-      <TouchableHighlight style={styles.button} onPress={() => { handleSubmit(navigation); }} underlayColor="#C70F66">
+      <TouchableHighlight style={styles.button} onPress={() => { handleSubmit(email, password, navigation); }} underlayColor="#C70F66">
         <Text style={styles.buttonTitle}>ログインする</Text>
       </TouchableHighlight>
     </View>
   );
 }
 
-function handleSubmit(navigation) {
-
-  navigation.navigate('Home');
+function handleSubmit(email, password, navigation) {
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((user) => {
+      console.log(user);
+      navigation.navigate('Home');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   // login
 }
