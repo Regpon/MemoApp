@@ -37,8 +37,7 @@ export default function LoginScreen(props) {
 function handleSubmit(email, password, navigation) {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then((user) => {
-      console.log(user);
-      navigation.navigate('Home');
+      navigation.navigate('Home', user);
     })
     .catch((error) => {
       console.log(error);
