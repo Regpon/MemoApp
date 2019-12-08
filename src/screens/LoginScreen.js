@@ -5,8 +5,8 @@ import firebase from 'firebase';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('user@example.com');
+  const [password, setPassword] = useState('123456789');
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -14,6 +14,7 @@ export default function LoginScreen(props) {
       </Text>
       <TextInput
         style={styles.input}
+        value={email}
         onChangeText={(value) => setEmail(value)}
         autoCapitalize="none"
         autoCorrect={false}
@@ -21,6 +22,7 @@ export default function LoginScreen(props) {
       />
       <TextInput
         style={styles.input}
+        value={password}
         onChangeText={(value) => setPassword(value)}
         autoCapitalize="none"
         autoCorrect={false}
@@ -36,8 +38,8 @@ export default function LoginScreen(props) {
 
 function handleSubmit(email, password, navigation) {
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      navigation.navigate('Home', user);
+    .then(() => {
+      navigation.navigate('Home');
     })
     .catch((error) => {
       console.log(error);

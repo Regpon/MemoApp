@@ -1,38 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, FlatList } from 'react-native';
 
 function MemoList(props) {
-  const { navigation } = props;
+  const { navigation, memoList } = props;
+
   return (
     <View style={styles.memoList}>
-      <TouchableHighlight onPress={() => { navigation.navigate('MemoDetail'); }}>
-        <View style={styles.memoListItem}>
-          <Text style={styles.memoTitle}>講座のアイテム</Text>
-          <Text style={styles.memoDate}>2019/10/10</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight onPress={() => { navigation.navigate('MemoDetail'); }}>
-        <View style={styles.memoListItem}>
-          <Text style={styles.memoTitle}>講座のアイテム</Text>
-          <Text style={styles.memoDate}>2019/10/10</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight onPress={() => { navigation.navigate('MemoDetail'); }}>
-        <View style={styles.memoListItem}>
-          <Text style={styles.memoTitle}>講座のアイテム</Text>
-          <Text style={styles.memoDate}>2019/10/10</Text>
-        </View>
-      </TouchableHighlight>
-
+      <FlatList
+        data={memoList}
+        renderItem={({ item }) => (
+          <TouchableHighlight onPress={() => { navigation.navigate('MemoDetail'); }}>
+            <View style={styles.memoListItem}>
+              <Text style={styles.memoTitle}>{item.body}</Text>
+              <Text style={styles.memoDate}>dummy</Text>
+            </View>
+          </TouchableHighlight>
+        )}
+      />
     </View>
   );
 }
 
+const MemoListType = PropTypes.shape({
+  body: PropTypes.string,
+  createdOn: PropTypes.shape(),
+});
+
 MemoList.propTypes = {
   navigation: PropTypes.shape().isRequired,
+  memoList: PropTypes.arrayOf(MemoListType).isRequired,
 };
 
 const styles = StyleSheet.create({

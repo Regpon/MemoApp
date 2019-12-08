@@ -8,7 +8,6 @@ import CircleButton from '../elements/CircleButton';
 
 export default function MemoCreateScreen(props) {
   const { navigation } = props;
-  const { params } = navigation.state;
   const [body, setBody] = useState('');
   return (
     <View style={styles.container}>
@@ -17,14 +16,15 @@ export default function MemoCreateScreen(props) {
         multiline
         onChangeText={(value) => { setBody(value); }}
       />
-      <CircleButton name="check" onPress={() => { handleSubmit(body, navigation, params); }} />
+      <CircleButton name="check" onPress={() => { handleSubmit(body, navigation); }} />
     </View>
   );
 }
 
-function handleSubmit(bodyText, navigation, params) {
+function handleSubmit(bodyText, navigation) {
   const db = firebase.firestore();
-  db.collection(`users/${params.user.uid}/memos`).add({
+  const { currentUser } = firebase.auth();
+  db.collection(`users/${currentUser.uid}/memos`).add({
     body: bodyText,
     createdOn: new Date(),
   })
