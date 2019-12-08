@@ -5,7 +5,6 @@ import { StyleSheet, Text, View, TouchableHighlight, FlatList } from 'react-nati
 
 function MemoList(props) {
   const { navigation, memoList } = props;
-  console.log(memoList);
 
   return (
     <View style={styles.memoList}>

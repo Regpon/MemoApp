@@ -47,7 +47,6 @@ const App = createStackNavigator({
     headerTitle: 'MEMOT',
     headerStyle: {
       backgroundColor: '#265366',
-      textAlign: 'center',
     },
     headerTintColor: '#fff',
     headerBackTitle: null,

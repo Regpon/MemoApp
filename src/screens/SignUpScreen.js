@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { StackActions, NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
 import firebase from 'firebase';
@@ -42,6 +43,13 @@ function handleSubmit(email, password, navigation) {
   // sign up
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(() => {
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' }),
+        ],
+      });
+      navigation.dispatch(resetAction);
       navigation.navigate('Home');
     })
     .catch((error) => {

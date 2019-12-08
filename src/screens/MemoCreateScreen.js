@@ -29,7 +29,7 @@ function handleSubmit(bodyText, navigation) {
     createdOn: new Date(),
   })
     .then(() => {
-      navigation.navigate('Home');
+      navigation.goBack();
     })
     .catch((error) => {
       console.log(error);
@@ -53,5 +53,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
     fontSize: 16,
+    textAlignVertical: 'top',
   },
 });

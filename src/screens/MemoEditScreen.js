@@ -33,9 +33,6 @@ function submitHandler(memo, navigation) {
       body: memo.body,
       createdOn: dateTime,
     })
-    .then(() => {
-      console.log('success!');
-    })
     .catch((error) => {
       console.log(error);
     });
@@ -61,5 +58,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
     fontSize: 16,
+    textAlignVertical: 'top',
   },
 });
