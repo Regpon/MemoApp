@@ -1,9 +1,11 @@
+/* eslint-disable prefer-template */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, TouchableHighlight, FlatList } from 'react-native';
 
 function MemoList(props) {
   const { navigation, memoList } = props;
+  console.log(memoList);
 
   return (
     <View style={styles.memoList}>
@@ -23,8 +25,12 @@ function MemoList(props) {
 }
 
 function dateString(date) {
-  const dateStr = date.toISOString().substring(0, 19);
-  return dateStr.replace('T', ' ');
+  return date.getFullYear()
+    + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
+    + '/' + ('0' + date.getDate()).slice(-2)
+    + ' ' + ('0' + date.getHours()).slice(-2)
+    + ':' + ('0' + date.getMinutes()).slice(-2)
+    + ':' + ('0' + date.getSeconds()).slice(-2);
 }
 
 const MemoListType = PropTypes.shape({

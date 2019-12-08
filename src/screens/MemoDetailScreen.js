@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
@@ -11,7 +12,7 @@ export default function MemoDetaiScreen(props) {
 
   useEffect(() => {
     setMemo(params.memo);
-  });
+  }, [params]);
 
   return (
     <View style={styles.cintainer}>
@@ -26,14 +27,27 @@ export default function MemoDetaiScreen(props) {
           {memo.body}
         </Text>
       </View>
-      <CircleButton name="pencil" reverseColor onPress={() => { navigation.navigate('MemoEdit', { memo }); }} style={styles.editButton} />
+      <CircleButton
+        name="pencil"
+        reverseColor
+        onPress={() => {
+          navigation.navigate('MemoEdit', {
+            memo, onGoBack: (value) => setMemo(value),
+          });
+        }}
+        style={styles.editButton}
+      />
     </View>
   );
 }
 
 function dateString(date) {
-  const dateStr = date.toISOString().substring(0, 19);
-  return dateStr.replace('T', ' ');
+  return date.getFullYear()
+    + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
+    + '/' + ('0' + date.getDate()).slice(-2)
+    + ' ' + ('0' + date.getHours()).slice(-2)
+    + ':' + ('0' + date.getMinutes()).slice(-2)
+    + ':' + ('0' + date.getSeconds()).slice(-2);
 }
 
 MemoDetaiScreen.propTypes = {

@@ -27,10 +27,11 @@ export default function MemoEditScreen(props) {
 function submitHandler(memo, navigation) {
   const { currentUser } = firebase.auth();
   const db = firebase.firestore();
-  console.log(memo);
+  const dateTime = firebase.firestore.Timestamp.now();
   db.collection(`users/${currentUser.uid}/memos`).doc(memo.key)
     .update({
       body: memo.body,
+      createdOn: dateTime,
     })
     .then(() => {
       console.log('success!');
@@ -38,7 +39,9 @@ function submitHandler(memo, navigation) {
     .catch((error) => {
       console.log(error);
     });
-  navigation.goBack();
+  // 受け取ったコールバック関数にmemoオブジェクトを渡す
+  navigation.state.params.onGoBack({ ...memo, createdOn: dateTime });
+  navigation.navigate('MemoDetail');
 }
 
 MemoEditScreen.propTypes = {

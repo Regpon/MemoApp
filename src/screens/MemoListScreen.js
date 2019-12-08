@@ -11,12 +11,20 @@ import CircleButton from '../elements/CircleButton';
 export default function MemoListScreen(props) {
   const { currentUser } = firebase.auth();
   const db = firebase.firestore();
-  const loadedMemoList = [];
-
+  const { navigation } = props;
   const [memoList, setMemoList] = useState([]);
 
   useEffect(() => {
-    db.collection(`users/${currentUser.uid}/memos`).get()
+    db.collection(`users/${currentUser.uid}/memos`)
+      .onSnapshot((snapshot) => {
+        const loadedMemoList = [];
+        snapshot.forEach((doc) => {
+          loadedMemoList.push({ ...doc.data(), key: doc.id });
+        });
+        setMemoList(loadedMemoList);
+      });
+    /*
+      .get()
       .then((snapshot) => {
         console.log('loaded');
         snapshot.forEach((doc) => {
@@ -27,9 +35,9 @@ export default function MemoListScreen(props) {
       .catch((error) => {
         console.log(error);
       });
-  }, [navigation]);
+      */
+  }, [db]);
 
-  const { navigation } = props;
   return (
     <View style={styles.container}>
       <MemoList navigation={navigation} memoList={memoList} />
