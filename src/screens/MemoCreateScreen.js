@@ -28,8 +28,8 @@ function handleSubmit(bodyText, navigation) {
     body: bodyText,
     createdOn: new Date(),
   })
-    .then((docRef) => {
-      console.log(docRef);
+    .then(() => {
+      navigation.navigate('Home');
     })
     .catch((error) => {
       console.log(error);

@@ -9,25 +9,26 @@ import CircleButton from '../elements/CircleButton';
 
 // navigation.navigate('MemoEdit');
 export default function MemoListScreen(props) {
+  const { currentUser } = firebase.auth();
+  const db = firebase.firestore();
+  const loadedMemoList = [];
 
   const [memoList, setMemoList] = useState([]);
 
   useEffect(() => {
-    const { currentUser } = firebase.auth();
-    const db = firebase.firestore();
-    const loadedMemoList = [];
     db.collection(`users/${currentUser.uid}/memos`).get()
       .then((snapshot) => {
+        console.log('loaded');
         snapshot.forEach((doc) => {
           loadedMemoList.push({ ...doc.data(), key: doc.id });
         });
-        // stateに入れる
         setMemoList(loadedMemoList);
       })
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, [navigation]);
+
   const { navigation } = props;
   return (
     <View style={styles.container}>

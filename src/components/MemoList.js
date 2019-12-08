@@ -10,16 +10,21 @@ function MemoList(props) {
       <FlatList
         data={memoList}
         renderItem={({ item }) => (
-          <TouchableHighlight onPress={() => { navigation.navigate('MemoDetail'); }}>
+          <TouchableHighlight onPress={() => { navigation.navigate('MemoDetail', { memo: item }); }}>
             <View style={styles.memoListItem}>
-              <Text style={styles.memoTitle}>{item.body}</Text>
-              <Text style={styles.memoDate}>dummy</Text>
+              <Text style={styles.memoTitle}>{item.body.substring(0, 10)}</Text>
+              <Text style={styles.memoDate}>{dateString(item.createdOn.toDate())}</Text>
             </View>
           </TouchableHighlight>
         )}
       />
     </View>
   );
+}
+
+function dateString(date) {
+  const dateStr = date.toISOString().substring(0, 19);
+  return dateStr.replace('T', ' ');
 }
 
 const MemoListType = PropTypes.shape({

@@ -8,7 +8,7 @@ import MemoEditScreen from './src/screens/MemoEditScreen';
 import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
-import ENV from './env.json';
+import ENV from './env_v2.json';
 
 const firebaseConfig = {
   apiKey           : ENV.FIREBASE_API_KEY,
