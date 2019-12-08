@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
 import firebase from 'firebase';
 import '@firebase/firestore';
@@ -12,7 +12,7 @@ export default function MemoEditScreen(props) {
   const [memo, setMemo] = useState(params.memo);
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="height" keyboardVerticalOffset="80">
       <TextInput
         style={styles.memoEditInput}
         multiline
@@ -20,7 +20,7 @@ export default function MemoEditScreen(props) {
         onChangeText={(value) => { setMemo({ ...memo, body: value }); }}
       />
       <CircleButton name="check" onPress={() => { submitHandler(memo, navigation); }} />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
